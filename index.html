@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevHub | Rapid Low‑Code Development</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Roboto',sans-serif;color:#222;background:#fafafa}
+        h1,h2,h3,h4{font-family:'Poppins',sans-serif;font-weight:600}
+        .container{max-width:1200px;margin:auto;padding:0 20px}
+        header{background:#fff;box-shadow:0 2px 15px rgba(0,0,0,.05);position:fixed;width:100%;z-index:1000}
+        nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+        .logo{display:flex;align-items:center}
+        .logo-icon{font-size:28px;color:#5a9efb;margin-right:10px}
+        .logo-text{font-size:24px;font-weight:700;color:#222}
+        .logo-text span{color:#5a9efb}
+        .nav-links{display:flex;list-style:none}
+        .nav-links li{margin-left:30px}
+        .nav-links a{text-decoration:none;color:#555;font-weight:500;transition:color .3s}
+        .nav-links a:hover{color:#5a9efb}
+        .cta-btn{background:#5a9efb;color:#fff;border:none;padding:12px 28px;border-radius:6px;font-weight:600;cursor:pointer;transition:background-color .3s,transform .2s}
+        .cta-btn:hover{background:#4b8de0;transform:translateY(-2px)}
+        .mobile-btn{display:none;background:none;border:none;font-size:24px;color:#222;cursor:pointer}
+        .hero{padding:150px 0 100px;background:linear-gradient(135deg,#e8f0ff,#fafafa)}
+        .hero-content{display:flex;align-items:center;justify-content:space-between}
+        .hero-text{flex:1;padding-right:40px}
+        .hero-text h1{font-size:48px;margin-bottom:20px;color:#111}
+        .hero-text h1 span{color:#5a9efb}
+        .hero-text p{font-size:18px;color:#555;margin-bottom:30px;max-width:600px}
+        .hero-btns{display:flex;gap:15px}
+        .hero-btns .alt-btn{background:#fff;color:#5a9efb;border:2px solid #5a9efb;padding:12px 28px;border-radius:6px;font-weight:600;cursor:pointer;transition:all .3s}
+        .hero-btns .alt-btn:hover{background:#e8f0ff}
+        .hero-img{flex:1;text-align:center}
+        .hero-img img{max-width:100%;border-radius:10px;box-shadow:0 20px 40px rgba(90,158,251,.15)}
+        .features{padding:100px 0;background:#fff}
+        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px}
+        .feature{background:#fff;padding:30px;border-radius:10px;box-shadow:0 5px 20px rgba(0,0,0,.05);transition:transform .3s,box-shadow .3s}
+        .feature:hover{transform:translateY(-10px);box-shadow:0 15px 30px rgba(0,0,0,.1)}
+        .feature-icon{background:#e8f0ff;color:#5a9efb;width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:28px}
+        .feature h3{font-size:22px;margin-bottom:15px}
+        .feature p{color:#555}
+        .benefits{padding:100px 0;background:#e8f0ff}
+        .benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
+        .benefit{text-align:center;padding:30px 20px}
+        .benefit-icon{color:#5a9efb;font-size:40px;margin-bottom:20px}
+        .benefit h3{font-size:22px;margin-bottom:15px}
+        .benefit p{color:#555}
+        .testimonials{padding:100px 0;background:#fff}
+        .testimonial{background:#fafafa;padding:40px;border-radius:10px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,.05)}
+        .testimonial-text{font-size:18px;font-style:italic;margin-bottom:30px;color:#444}
+        .testimonial-author{display:flex;align-items:center;justify-content:center}
+        .avatar{width:60px;height:60px;border-radius:50%;background:#ddd;margin-right:15px;display:flex;align-items:center;justify-content:center;font-weight:bold;color:#5a9efb;font-size:24px}
+        .author h4{font-size:18px;margin-bottom:5px}
+        .author p{color:#777;font-size:14px}
+        .pricing{padding:100px 0;background:#fafafa}
+        .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px}
+        .pricing-card{background:#fff;border-radius:10px;padding:40px 30px;box-shadow:0 5px 20px rgba(0,0,0,.05);text-align:center;transition:transform .3s}
+        .pricing-card.featured{border-top:5px solid #5a9efb;transform:scale(1.05);position:relative}
+        .badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#5a9efb;color:#fff;padding:5px 20px;border-radius:20px;font-size:14px;font-weight:600}
+        .pricing-card:hover{transform:translateY(-10px)}
+        .pricing-card.featured:hover{transform:scale(1.05) translateY(-10px)}
+        .plan-name{font-size:24px;margin-bottom:15px;color:#111}
+        .plan-price{font-size:48px;font-weight:700;color:#5a9efb;margin-bottom:20px}
+        .plan-price span{font-size:16px;color:#777}
+        .plan-features{list-style:none;margin-bottom:30px}
+        .plan-features li{padding:10px 0;border-bottom:1px solid #eee;color:#555}
+        .cta-section{padding:100px 0;background:linear-gradient(135deg,#5a9efb,#4b8de0);text-align:center;color:#fff}
+        .cta-section h2{font-size:36px;margin-bottom:20px}
+        .cta-section p{font-size:18px;max-width:700px;margin:0 auto 30px;opacity:.9}
+        .cta-section .cta-btn{background:#fff;color:#5a9efb;font-size:16px;padding:15px 40px}
+        .cta-section .cta-btn:hover{background:#e8f0ff}
+        footer{background:#222;color:#ccc;padding:70px 0 20px}
+        .footer-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:50px}
+        .footer-col h3{font-size:20px;color:#fff;margin-bottom:25px}
+        .footer-links{list-style:none}
+        .footer-links li{margin-bottom:12px}
+        .footer-links a{color:#aaa;text-decoration:none;transition:color .3s}
+        .footer-links a:hover{color:#5a9efb}
+        .footer-copyright{text-align:center;padding-top:20px;border-top:1px solid #444;font-size:14px;color:#888}
+        @media (max-width:992px){.hero-content{flex-direction:column}.hero-text{padding-right:0;margin-bottom:50px;text-align:center}.hero-text p{margin:0 auto 30px}.pricing-card.featured{transform:none}.pricing-card.featured:hover{transform:translateY(-10px)}@media (max-width:768px){.nav-links{display:none}.mobile-btn{display:block}.hero-text h1{font-size:36px}.hero-text h2{font-size:30px}.hero-btns{flex-direction:column;align-items:center}.hero-btns button{width:100%;max-width:300px}}@media (max-width:576px){.hero{padding:130px 0 80px}.features,.benefits,.testimonials,.pricing,.cta-section{padding:70px 0}.feature,.testimonial{padding:25px}.plan-price{font-size:36px}}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-cubes"></i></div>
+                    <div class="logo-text">Dev<span>Hub</span></div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+                <button class="cta-btn">Start Free Trial</button>
+                <button class="mobile-btn"><i class="fas fa-bars"></i></button>
+            </nav>
+        </div>
+    </header>
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Build Apps Instantly With <span>Low‑Code</span></h1>
+                    <p>DevHub lets teams create robust applications without writing boilerplate code. Drag, drop, and connect data to bring ideas to life in minutes.</p>
+                    <div class="hero-btns">
+                        <button class="cta-btn">Get Started Free</button>
+                        <button class="alt-btn">Watch Demo</button>
+                    </div>
+                </div>
+                <div class="hero-img">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="DevHub Interface">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Core Features for Rapid Development</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-wrench"></i></div>
+                    <h3>Visual Designer</h3>
+                    <p>Drag UI blocks and arrange them visually. Connect data sources with point‑and‑click actions.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-database"></i></div>
+                    <h3>Data Connectors</h3>
+                    <p>Plug into any database or API. Auto‑generate CRUD without SQL.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Cross‑Platform</h3>
+                    <p>Generate apps for web, iOS, Android from a single design.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-code"></i></div>
+                    <h3>Code Extensibility</h3>
+                    <p>Write custom JS when needed. No limits on logic.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Enterprise Security</h3>
+                    <p>Auth, role‑based, encryption. SOC‑2 ready.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>One‑Click Deploy</h3>
+                    <p>Deploy to cloud or on‑premises with a click. Auto‑scale and monitor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <h2 class="section-title">Why Choose DevHub?</h2>
+            <div class="benefits-grid">
+                <div class="benefit">
+                    <div class="benefit-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>10× Faster Builds</h3>
+                    <p>Produce apps in days, not months.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <h3>Cut Costs 70%</h3>
+                    <p>Lower dev & maintenance spend.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon"><i class="fas fa-users"></i></div>
+                    <h3>Citizen Developers</h3>
+                    <p>Empower business users to build without IT.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Scale Seamlessly</h3>
+                    <p>From prototype to enterprise scale.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Clients Say</h2>
+            <div class="testimonial" id="testimonial">
+                <div class="testimonial-text">"DevHub accelerated our delivery. What took 6 months now 3 weeks. Our dev team focused on complex work while business users built their own solutions."</div>
+                <div class="testimonial-author">
+                    <div class="avatar">SC</div>
+                    <div class="author">
+                        <h4>Sarah Chen</h4>
+                        <p>CTO, TechGrowth Inc.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Transparent Pricing</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="plan-name">Starter</h3>
+                    <div class="plan-price">$29<span>/month</span></div>
+                    <ul class="plan-features">
+                        <li>Up to 5 users</li>
+                        <li>10 GB storage</li>
+                        <li>Basic components</li>
+                        <li>Community support</li>
+                        <li>1 app</li>
+                    </ul>
+                    <button class="alt-btn">Get Started</button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="badge">Most Popular</div>
+                    <h3 class="plan-name">Pro</h3>
+                    <div class="plan-price">$89<span>/month</span></div>
+                    <ul class="plan-features">
+                        <li>Up to 25 users</li>
+                        <li>100 GB storage</li>
+                        <li>All components</li>
+                        <li>Priority support</li>
+                        <li>10 apps</li>
+                        <li>Custom branding</li>
+                    </ul>
+                    <button class="cta-btn">Try 14‑Day Free</button>
+                </div>
+                <div class="pricing-card">
+                    <h3 class="plan-name">Enterprise</h3>
+                    <div class="plan-price">Custom</div>
+                    <ul class="plan-features">
+                        <li>Unlimited users</li>
+                        <li>Unlimited storage</li>
+                        <li>All features</li>
+                        <li>24/7 support</li>
+                        <li>Unlimited apps</li>
+                        <li>On‑premises option</li>
+                    </ul>
+                    <button class="alt-btn">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="cta-section">
+        <div class="container">
+            <h2>Get Started Today</h2>
+            <p>Join 10k+ companies using DevHub to accelerate app dev. No credit card needed for free trial.</p>
+            <button class="cta-btn">Start Free</button>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="footer-col">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-cubes"></i></div>
+                    <div class="logo-text">Dev<span>Hub</span></div>
+                </div>
+                <p style="margin-top:20px;color:#aaa;">The low‑code platform for building enterprise apps with minimal code.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Product</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Use Cases</a></li>
+                    <li><a href="#">Integrations</a></li>
+                    <li><a href="#">Roadmap</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Docs</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li>..</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2023 DevHub. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.querySelector('.mobile-btn').addEventListener('click', function(){
+            const nav=document.querySelector('.nav-links');
+            nav.style.display=nav.style.display==='flex'?'none':'flex';
+        });
+    </script>
+</body>
+</html>
